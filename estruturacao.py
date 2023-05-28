@@ -50,11 +50,12 @@ for pesquisa in descricao:
         palavras_pesquisa = pesquisa.split()
         for item in palavras_pesquisa: #FILTRO DE RESULTADOS
             if item in titulo:
+                valor = valor.replace('.', '')
                 if (centavos): #ISSO SIGNIFICA QUE SE O 'CENTAVOS' NÃO FOR NONE
-                    valor_final = f'R$ {valor},{centavos.text}'
+                    valor_final = float(f'{valor}.{centavos.text}')
                     
                 else:
-                    valor_final = f'R$ {valor},00'
+                    valor_final = float(f'{valor}.00')
                     
             else:
                 continue
@@ -69,9 +70,19 @@ for pesquisa in descricao:
 
 print(df2)
 
+#CRIAR COLUNA DE PREÇO MÉDIO
+df2.loc[:, 'VALOR 1':'VALOR 5'] = df2.loc[:, 'VALOR 1':'VALOR 5'].apply(pd.to_numeric, errors='coerce') #CONVERTER AS COLUNAS PARA TIPO NUMERICO
+df2['PREÇO MÉDIO'] = df2.loc[:, 'VALOR 1':'VALOR 5'].mean(axis=1)
+print(df2)
 
-    
+#ATUALIZAR PLANILHA DRIVE
+dados_atualizados = df2.values.tolist()
+# Determinar o intervalo de células onde os dados serão atualizados
+inicio_celula = 'A2'  # A célula onde os dados começarão a ser atualizados
+fim_celula = chr(ord('A') + len(df2.columns) - 1) + str(len(df2) + 1)  # Última célula onde os dados serão atualizados
 
+# Atualizar as células na planilha com os dados atualizados
+pagina2.update(inicio_celula + ':' + fim_celula, dados_atualizados)
 
 
 #MANTENDO UMA EXTRAÇÃO DE 20 ITENS, PODE SER UMA MARGEM BOA PARA APÓS O FILTRO MANTER OS 10 ITENS NECESSÁRIOS
