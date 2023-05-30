@@ -1,2 +1,2 @@
 # pesquisa-de-mercado
-Um sistema para auxiliar na decisão dos preços a serem aplicados nos produtos, através de analise prévia dos concorrentes, no mercado livre.
+Para pessoas que estão querendo abrir algum tipo de loja virtual, ou vendas diretas por marketplaces, como o Mercado livre, criei uma automação para auxiliar na decisão dos preços a serem aplicados nos produtos, através de analise prévia dos concorrentes, no mercado livre. Essa automação pesquisa os produtos que estão em uma planilha especifica, no Google Drive, e devolve os preços desses produtos na planilha, enviando o preço de 5 anúncios de cada produto, e a planilha já apresenta um preço médio.
